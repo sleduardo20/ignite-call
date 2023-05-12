@@ -1,3 +1,30 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["airbnb", "next", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["import", "jsx-a11y", "react", "react-hooks"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
+    "react/jsx-props-no-spreading": ["off"],
+    "import/prefer-default-export": ["off"],
+    "no-use-before-define": ["off"],
+    "arrow-body-style": ["off"],
+    "global-require": ["off"],
+    "import/no-cycle": ["off"],
+    "react/prop-types": ["off"],
+    "react/jsx-wrap-multilines": ["off"],
+    "@typescript-eslint/explicit-module-boundary-types": ["off"],
+    "@typescript-eslint/no-explicit-any": ["off"]
+  }
 }
