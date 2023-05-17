@@ -1,5 +1,5 @@
 {
-  "extends": ["airbnb", "next", "plugin:@typescript-eslint/recommended"],
+  "extends": ["airbnb", "next", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
   "plugins": ["import", "jsx-a11y", "react", "react-hooks"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
