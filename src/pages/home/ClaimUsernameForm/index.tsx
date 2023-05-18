@@ -1,23 +1,26 @@
-import { Button, TextInput } from '@igniteui-sleduardo20/react';
+import { Button, TextInput, Text } from '@igniteui-sleduardo20/react';
 import { ArrowRight } from 'phosphor-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Form } from './styles';
+import { Form, FormAnnotation } from './styles';
 
 const claimUsernameFormSchema = z.object({
   username: z
     .string()
-    .max(4, { message: 'alskdasdfasdfasdfasdfasdfasdfasdfasdffjasdfk' })
-    .min(3)
-    .regex(/^([a-z\\-]+)$/i)
-    .transform((username) => username.toLowerCase()),
+    .min(3, { message: 'Usuario precisa ter pelo menos 3 letras.' })
+    .regex(/^([a-z\\-]+)$/i, { message: 'Informe apenas letras e hifens.' })
+    .transform(username => username.toLowerCase()),
 });
 
 type ClaimUsernameFormData = z.infer<typeof claimUsernameFormSchema>;
 
 export function ClaimUsernameForm() {
-  const { register, handleSubmit } = useForm<ClaimUsernameFormData>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ClaimUsernameFormData>({
     resolver: zodResolver(claimUsernameFormSchema),
   });
 
@@ -26,16 +29,25 @@ export function ClaimUsernameForm() {
   };
 
   return (
-    <Form as="form" onSubmit={handleSubmit(handleClaimUsername)}>
-      <TextInput
-        prefix="ignite.com/"
-        placeholder="seu-usuario"
-        {...register('username')}
-      />
-      <Button size="sm" type="submit">
-        Reservar
-        <ArrowRight />
-      </Button>
-    </Form>
+    <>
+      <Form as="form" onSubmit={handleSubmit(handleClaimUsername)}>
+        <TextInput
+          prefix="ignite.com/"
+          placeholder="seu-usuario"
+          {...register('username')}
+        />
+        <Button size="sm" type="submit">
+          Reservar
+          <ArrowRight />
+        </Button>
+      </Form>
+      <FormAnnotation>
+        <Text>
+          {errors.username
+            ? errors.username.message
+            : 'Digite o nome do usuário desejado'}
+        </Text>
+      </FormAnnotation>
+    </>
   );
 }
