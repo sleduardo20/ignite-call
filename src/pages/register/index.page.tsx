@@ -18,10 +18,10 @@ import { Container, Form, FormError, Header } from './styles';
 const registerFormSchema = z.object({
   username: z
     .string()
-    .min(3, { message: 'Usuario precisa ter pelo menos 3 letras.' })
-    .regex(/^([a-z\\-]+)$/i, { message: 'Informe apenas letras e hifens.' })
+    .min(3, { message: 'Usuário precisa ter no mínimo 3 letras.' })
+    .regex(/^([a-z\\-]+)$/i, { message: 'Informe apenas letras e hífens.' })
     .transform(username => username.toLowerCase()),
-  name: z.string().min(3, { message: 'Nome precisa ter pelo menos 3 letras.' }),
+  name: z.string().min(3, { message: 'Nome precisa ter no mínimo 3 letras.' }),
 });
 
 type RegisterFormData = z.infer<typeof registerFormSchema>;
