@@ -29,5 +29,13 @@ export const Form = styled(Box, {
     display: 'flex',
     flexDirection: 'column',
     gap: '$2',
+
+    p: {
+      margin: 0,
+    },
   },
+});
+
+export const FormError = styled(Text, {
+  color: '#f75a68',
 });

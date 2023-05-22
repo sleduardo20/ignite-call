@@ -1,4 +1,4 @@
-import { Box, styled } from '@igniteui-sleduardo20/react';
+import { Box, Text, styled } from '@igniteui-sleduardo20/react';
 
 export const Form = styled(Box, {
   display: 'grid',
