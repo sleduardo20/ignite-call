@@ -16,6 +16,7 @@
   },
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".tsx",".ts"] }],
+    "no-shadow":"off",
     "import/extensions": [1, { "extensions": [".ts"] }],
     "import/no-extraneous-dependencies": ["off"],
     "react/jsx-props-no-spreading": ["off"],

@@ -7,13 +7,15 @@ import {
   Text,
   TextInput,
 } from '@igniteui-sleduardo20/react';
-
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { api } from '@/lib/axios';
+import { AxiosError } from 'axios';
 import { Container, Form, FormError, Header } from './styles';
+import { notification } from '../components/Notification';
 
 const registerFormSchema = z.object({
   username: z
@@ -45,9 +47,19 @@ export default function Register() {
   }, [router.query?.username, setValue]);
 
   const handleRegister = async (data: RegisterFormData) => {
-    const { username } = data;
+    try {
+      await api.post('/users', {
+        name: data.name,
+        username: data.username,
+      });
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        notification.error(error.response?.data.message);
+        return;
+      }
 
-    await router.push(`/register?username=${username}`);
+      notification.error('Error in application');
+    }
   };
 
   return (
