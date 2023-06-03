@@ -1,10 +1,12 @@
 import { ArrowRight } from 'phosphor-react';
 import { Button, Heading, MultiStep, Text } from '@igniteui-sleduardo20/react';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { Container, Header } from '../styles';
 import { ConnectBox, ConnectItem } from './styles';
 
 export default function Register() {
+  const { data } = useSession();
+
   const handleRegister = async (data: any) => {
     console.log(data);
   };
