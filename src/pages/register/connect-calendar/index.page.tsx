@@ -1,14 +1,19 @@
-import { ArrowRight } from 'phosphor-react';
+import { ArrowRight, Check } from 'phosphor-react';
 import { Button, Heading, MultiStep, Text } from '@igniteui-sleduardo20/react';
 import { signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import { Container, Header } from '../styles';
-import { ConnectBox, ConnectItem } from './styles';
+import { ConnectBox, ConnectItem, AuthError } from './styles';
 
 export default function Register() {
-  const { data } = useSession();
+  const session = useSession();
+  const router = useRouter();
 
-  const handleRegister = async (data: any) => {
-    console.log(data);
+  const hasAuthError = !!router.query.error;
+  const isSignedIn = session.status === 'authenticated';
+
+  const handleConnectCalendar = async () => {
+    await signIn('google');
   };
 
   return (
@@ -26,19 +31,29 @@ export default function Register() {
       <ConnectBox>
         <ConnectItem>
           <Text>Google Calendar</Text>
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={e => {
-              e.preventDefault();
-              signIn('google');
-            }}
-          >
-            Conectar
-            <ArrowRight />
-          </Button>
+          {isSignedIn ? (
+            <Button size="sm" disabled>
+              Conectadado
+              <Check />
+            </Button>
+          ) : (
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={handleConnectCalendar}
+            >
+              Conectar
+              <ArrowRight />
+            </Button>
+          )}
         </ConnectItem>
-        <Button type="submit">
+        {hasAuthError && (
+          <AuthError size="sm">
+            Falha ao se conectar com o Google, verifique se voce habilitou as
+            permissoes ao Google Calendar.
+          </AuthError>
+        )}
+        <Button type="submit" disabled={!isSignedIn}>
           Próximo passo
           <ArrowRight />
         </Button>
